@@ -129,6 +129,9 @@ function checkValidServiceWorker(swUrl, config) {
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
+      console.log(
+        'Wit u daein'
+      );
       registration.unregister();
     });
   }
