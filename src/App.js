@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import Navbar from './components/navbar.js';
+import Journal from './components/Journal.js';
 import NavButtons from './components/NavButtons.js';
 
 function App() {
@@ -53,85 +54,9 @@ function App() {
       </header>
      <div className="govuk-width-container ">
        <main className="govuk-main-wrapper " id="main-content" role="main">
-      <NavButtons />
-
-<h1 className="govuk-heading-l">Journal</h1>
-<p class="govuk-body">Use your journal to:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>add details about your work search</li>
-  <li>leave messages for Universal Credit</li>
-  <li>view your Universal Credit account history</li>
-</ul>
-<p class="govuk-body">If your message needs a reply, we'll respond during office hours (Monday to Friday, 8am to 6pm).</p>
-<button class="govuk-button" data-module="govuk-button">
-  Add a journal entry
-</button>
-
-
-<table className="govuk-table">
-        <caption className="govuk-table__caption">Journal entries</caption>
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row">
-            <th scope="col" className="govuk-table__header app-custom-class">Date and time</th>
-            <th scope="col" className="govuk-table__header app-custom-class">Message</th>
-            <th scope="col" className="govuk-table__header app-custom-class">Added by</th>
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
-          <tr className="govuk-table__row">
-          <td className="govuk-table__cell">10th July 2019</td>
-            <td className="govuk-table__cell">Hi Anthony, your earnings  on the 6th of January will not be 
-            taken into account for UC payment on the 7th of January,
-            but it will for your next  UC payment. Thanks Catriona
-
-<details class="govuk-details" data-module="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Send Reply
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-  <div class="govuk-form-group">
-  <label class="govuk-label" for="more-detail">
-
-<h1 className="govuk-heading-m">Reply</h1>
-  </label>
-  <textarea class="govuk-textarea" id="more-detail" name="more-detail" rows="5" aria-describedby="more-detail-hint"></textarea>
-  <button class="govuk-button" data-module="govuk-button">
-  Send reply
-</button>
-</div>
-  </div>
-</details>
-            </td>
-            <td className="govuk-table__cell">Catriona Newlands Jobcentre Plus</td>
-          </tr>
-          <tr className="govuk-table__row">
-            <th scope="row" className="govuk-table__header">3 Jan 2020 at 11:26am</th>
-            <td className="govuk-table__cell">£159.80 per week</td>
-            <td className="govuk-table__cell">£89.10 per week</td>
-          </tr>
-          <tr className="govuk-table__row">
-            <th scope="row" className="govuk-table__header">Total estimated pay</th>
-            <td className="govuk-table__cell">£4,282.20</td>
-            <td className="govuk-table__cell">£2,182.20</td>
-          </tr>
-        </tbody>
-      </table>
-
-<details class="govuk-details" data-module="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Help with nationality
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-    We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.
-  </div>
-</details>
-       
-       
-</main>
+          <NavButtons />
+          <Journal />
+       </main>
      </div>
      
      <footer className="govuk-footer " role="contentinfo">
