@@ -1,18 +1,48 @@
 import React, { useState } from 'react';
 
 function Journal(){
-    const [messages, setMessages] = useState(0);
+    const [input, setInput] = useState('');
+    const [savedMessages, setSavedMessages] = useState([
+        {date: "30 Dec 2019 at 11:07am",
+         text: "Your phone appointment on Monday 30 December 2019 at 11:20am was cancelled",
+         user: "An Agent"
+        },
+        {date: "30 Dec 2019 at 11:07am",
+        text: "You're a bawbag",
+        user: "An Agent"
+        }
+    ]);
 
     const handleInputChange = (event) => {
         event.persist();
-        setMessages(messages => ({...messages, [event.target.name]: event.target.value}));
-        console.log(messages)
-      }
+        setInput(input => ({...input, [event.target.name]: event.target.value}));
+        console.log(input)
+    }
 
     const handleInputSubmit = (event) => {
         event.persist();
-        
-        console.log(messages)
+        let date = new Date().toDateString()
+        let newElement = {
+            date: date,
+            text: input.message,
+            user: "Anthony McShane"
+        }
+        setSavedMessages(prevSavedMessages =>[newElement, ...prevSavedMessages])
+        setInput('')
+        document.getElementById('more-detail').value = ''
+        console.log(savedMessages.length)
+        console.log(savedMessages)
+        console.log(date)
+    }
+
+    const renderMessage = message => {
+        return(
+            <tr className="govuk-table__row">
+                    <td className="govuk-table__cell">{message.date}</td>
+                    <td className="govuk-table__cell">{message.text}</td>
+                    <td className="govuk-table__cell">{message.user}</td>
+            </tr>
+        )
     }
 
     return (
@@ -37,43 +67,45 @@ function Journal(){
                         <th scope="col" className="govuk-table__header app-custom-class">Added by</th>
                     </tr>
                 </thead>
-            <tbody className="govuk-table__body">
-                <tr className="govuk-table__row">
-                    <td className="govuk-table__cell">3 Jan 2020 at 11:26am</td>
-                    <td className="govuk-table__cell">Hi Anthony, your earnings  on the 6th of January will not be 
-                    taken into account for UC payment on the 7th of January,
-                    but it will for your next  UC payment. Thanks, Catriona
-                    <details class="govuk-details" data-module="govuk-details">
-                        <summary class="govuk-details__summary">
-                            <span class="govuk-details__summary-text">
-                            Send Reply
-                            </span>
-                        </summary>
-                        <div class="govuk-details__text">
-                            <div class="govuk-form-group">
-                                <label class="govuk-label" for="more-detail">
-                                    <h1 className="govuk-heading-m">Reply</h1>
-                                </label>
-                                <textarea class="govuk-textarea" id="more-detail" name="message" onChange={handleInputChange} value={messages.message} rows="5" aria-describedby="more-detail-hint"></textarea>
-                                <button class="govuk-button" data-module="govuk-button" onClick={handleInputSubmit}>
-                                Send reply
-                                </button>
+                <tbody className="govuk-table__body">
+
+                {savedMessages.map(message => renderMessage(message))}
+                    <tr className="govuk-table__row">
+                        <td className="govuk-table__cell">3 Jan 2020 at 11:26am</td>
+                        <td className="govuk-table__cell">Hi Anthony, your earnings  on the 6th of January will not be 
+                        taken into account for UC payment on the 7th of January,
+                        but it will for your next  UC payment. Thanks, Catriona
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                Send Reply
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="more-detail">
+                                        <h1 className="govuk-heading-m">Reply</h1>
+                                    </label>
+                                    <textarea class="govuk-textarea" id="more-detail" name="message" onChange={handleInputChange} value={input.message} rows="5" aria-describedby="more-detail-hint"></textarea>
+                                    <button class="govuk-button" data-module="govuk-button" onClick={handleInputSubmit}>
+                                    Send reply
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </details>
-                    </td>
-                    <td className="govuk-table__cell">Catriona Newlands Jobcentre Plus</td>
-                </tr>
-                <tr className="govuk-table__row">
-                    <td className="govuk-table__cell">2 Jan 2020 at 4:42pm</td>                   <td className="govuk-table__cell">Hi Catriona, sorry for the late reply.  I'll be getting paid on Monday.  Best, Tony</td>
-                    <td className="govuk-table__cell">Anthony McShane</td>
-                </tr>
-                <tr className="govuk-table__row">
-                    <td className="govuk-table__cell">30 Dec 2019 at 11:07am</td>
-                    <td className="govuk-table__cell">Your phone appointment on Monday 30 December 2019 at 11:20am was cancelled</td>
-                    <td className="govuk-table__cell">	An agent</td>
-                </tr>
-            </tbody>
+                        </details>
+                        </td>
+                        <td className="govuk-table__cell">Catriona Newlands Jobcentre Plus</td>
+                    </tr>
+                    <tr className="govuk-table__row">
+                        <td className="govuk-table__cell">2 Jan 2020 at 4:42pm</td>                   <td className="govuk-table__cell">Hi Catriona, sorry for the late reply.  I'll be getting paid on Monday.  Best, Tony</td>
+                        <td className="govuk-table__cell">Anthony McShane</td>
+                    </tr>
+                    <tr className="govuk-table__row">
+                        <td className="govuk-table__cell">30 Dec 2019 at 11:07am</td>
+                        <td className="govuk-table__cell">Your phone appointment on Monday 30 December 2019 at 11:20am was cancelled</td>
+                        <td className="govuk-table__cell">	An agent</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     )
