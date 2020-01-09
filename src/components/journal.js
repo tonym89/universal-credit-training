@@ -21,7 +21,17 @@ function Journal(){
 
     const handleInputSubmit = (event) => {
         event.persist();
-        let date = new Date().toDateString()
+        let date = new Date()
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        const strTime = hours + ':' + minutes + ampm;
+        let number = date.toDateString().substring(8, 10)
+        number[0] == 0 ? number = number[1] : number = number
+        date = `${number} ${date.toDateString().substring(4, 7)} at ${strTime}`
         let newElement = {
             date: date,
             text: input.message,
@@ -30,9 +40,6 @@ function Journal(){
         setSavedMessages(prevSavedMessages =>[newElement, ...prevSavedMessages])
         setInput('')
         document.getElementById('more-detail').value = ''
-        console.log(savedMessages.length)
-        console.log(savedMessages)
-        console.log(date)
     }
 
     const renderMessage = message => {
