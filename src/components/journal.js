@@ -19,6 +19,10 @@ function Journal(){
         if (!localStorage.getItem('savedMessages')){
         localStorage.setItem('savedMessages', JSON.stringify(savedMessages))
         }
+        setSavedMessages(JSON.parse(localStorage.getItem('savedMessages')))
+        if (localStorage.getItem('latestMessage')){
+        setSavedMessages(prevSavedMessages =>[JSON.parse(localStorage.getItem('latestMessage')), ...prevSavedMessages])
+        }
         setState('')
       }, [])
 
