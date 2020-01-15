@@ -14,10 +14,14 @@ function Journal(){
     ]);
     const [state, setState] = useState(0)
 
+    // load state to local storage on render
     useEffect(() => {
-            setState(localStorage.getItem('savedMessages'))
-            console.log(state)
-      });
+        if (!localStorage.getItem('savedMessages')){
+        localStorage.setItem('savedMessages', JSON.stringify(savedMessages))
+        }
+        setState('')
+      }, [])
+
 
     const handleInputChange = (event) => {
         event.persist();
