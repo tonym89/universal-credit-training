@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Journal(){
     const [input, setInput] = useState('');
@@ -8,10 +8,16 @@ function Journal(){
          user: "An Agent"
         },
         {date: "30 Dec 2019 at 11:07am",
-        text: "You're a bawbag",
+        text: "Please call us on +441416389910",
         user: "An Agent"
         }
     ]);
+    const [state, setState] = useState(0)
+
+    useEffect(() => {
+            setState(localStorage.getItem('savedMessages'))
+            console.log(state)
+      });
 
     const handleInputChange = (event) => {
         event.persist();
@@ -30,8 +36,9 @@ function Journal(){
         minutes = minutes < 10 ? '0'+minutes : minutes;
         const strTime = hours + ':' + minutes + ampm;
         let number = date.toDateString().substring(8, 10)
+        let year = date.toDateString().substring(11, 15)
         number[0] == 0 ? number = number[1] : number = number
-        date = `${number} ${date.toDateString().substring(4, 7)} at ${strTime}`
+        date = `${number} ${date.toDateString().substring(4, 7)} ${year} at ${strTime}`
         let newElement = {
             date: date,
             text: input.message,
@@ -40,6 +47,9 @@ function Journal(){
         setSavedMessages(prevSavedMessages =>[newElement, ...prevSavedMessages])
         setInput('')
         document.getElementById('more-detail').value = ''
+        console.log(savedMessages)
+        localStorage.setItem('savedMessages', JSON.stringify(savedMessages))
+        localStorage.setItem('latestMessage', JSON.stringify(newElement))
     }
 
     const renderMessage = message => {
@@ -76,7 +86,16 @@ function Journal(){
                 </thead>
                 <tbody className="govuk-table__body">
 
-                {savedMessages.map(message => renderMessage(message))}
+                {localStorage.getItem('latestMessage') &&
+                    <tr className="govuk-table__row">
+                        <td className="govuk-table__cell">{JSON.parse(localStorage.getItem('latestMessage')).date}</td>
+                        <td className="govuk-table__cell">{JSON.parse(localStorage.getItem('latestMessage')).text}</td>
+                        <td className="govuk-table__cell">{JSON.parse(localStorage.getItem('latestMessage')).user}</td>
+                     </tr>
+                }
+                {localStorage.getItem('savedMessages') &&
+                JSON.parse(localStorage.getItem('savedMessages')).map(message => renderMessage(message))
+                }
                     <tr className="govuk-table__row">
                         <td className="govuk-table__cell">3 Jan 2020 at 11:26am</td>
                         <td className="govuk-table__cell">Hi Anthony, your earnings  on the 6th of January will not be 
