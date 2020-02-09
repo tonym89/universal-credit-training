@@ -127,3 +127,20 @@ height:43px;
 line-height:25px;
 padding-inline-start: 0px;
 }
+
+.home-menu-item {
+  background: #f8f8f8;
+    border-bottom: 1px solid #bfc1c3;
+    display: block;
+    padding: 15px 30px;
+    min-height: 2.6315789474em;
+    margin: 0 15px 15px;
+    text-decoration: none;
+    line-height: 24px;
+    width: 50%;
+}
+
+.home-grid-row {
+  display: flex;
+  flex-direction: row;
+}

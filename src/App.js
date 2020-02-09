@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import Navbar from './components/navbar.js';
+import Home from './components/Home.js';
 import Journal from './components/Journal.js';
+import TodoList from './components/TodoList.js';
 import NavButtons from './components/NavButtons.js';
 
 function App() {
+
+  const [component, setComponent] = useState('Home')
+
+  function handleClick(e) {
+    e.preventDefault();
+    setComponent(e.target.name);
+  }
   return (
     <div>
      <meta charSet="utf-8" />
@@ -54,8 +63,39 @@ function App() {
       </header>
      <div className="govuk-width-container ">
        <main className="govuk-main-wrapper " id="main-content" role="main">
-          <NavButtons />
+       <div>
+            <nav>
+                <ul className="Nav-list">
+                <li className="Nav-button">
+                    <a href="/dashboard" name="Home" onClick={handleClick}  className="Nav-button-link">
+                        Home
+                    </a>
+                </li>
+                <li className="Nav-button">
+                    <a href="/to-do" name="To-Do" onClick={handleClick} id="to-do-tab" className="Nav-button-link">
+                        To-do list
+                    </a>
+                </li>
+                <li className="Nav-button">
+                    <a href="/journal" name="Journal" onClick={handleClick} className="Nav-button-link" style={{marginRight:"0px"}}>
+                        Journal
+                    </a>
+                </li>
+                </ul>
+            </nav>
+        </div>
+          {component === 'Journal' &&
           <Journal />
+        }
+
+{component === 'To-Do' &&
+          <TodoList/>
+        }
+
+
+{component === 'Home' &&
+          <Home/>
+        }
        </main>
      </div>
      
